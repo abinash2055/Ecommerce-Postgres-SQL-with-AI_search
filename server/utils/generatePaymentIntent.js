@@ -1,7 +1,7 @@
 import database from "../database/db.js";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.SECRET_STRIPE_KEY);
+const stripe = new Stripe("sk_test_51QeUn6P6rKjXAuEyIkpmthFi41Ru1JiajSGsbSVNESqw1OuZJlyK6jVEyfpApyVKHjXr3iyusNXPGLPXhWjyz6zB00prVEj8QB");
 
 export async function generatePaymentIntent(orderId, totalPrice) {
     try {
