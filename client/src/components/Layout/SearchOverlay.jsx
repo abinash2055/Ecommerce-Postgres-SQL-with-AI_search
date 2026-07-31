@@ -25,7 +25,7 @@ const SearchOverlay = () => {
     <>
       <div className="fixed inset-0 z-50">
         {/* Glass Background */}
-        <div className="absolute inset-0 backdrop-blur-md bg-[hsla(var(--glass-bg))">
+        <div className="absolute inset-0 backdrop-blur-md bg-[hsla(var(--glass-bg))]">
 
           {/* Search Container */}
           <div className="relative z-10 animate-slide-in-top">
