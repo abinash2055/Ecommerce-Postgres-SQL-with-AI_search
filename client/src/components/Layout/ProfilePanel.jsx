@@ -3,7 +3,7 @@ import { X, LogOut, Upload, Eye, EyeOff } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { logout, updatePassword, updateProfile } from "../../store/slices/authSlice";
-import { toggleAuthPopup } from "../../store/slices/popupSlice";
+import { toggleAuthPopup, toggleSidebar } from "../../store/slices/popupSlice";
 
 const ProfilePanel = () => {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const ProfilePanel = () => {
     formData.append("currentPassword", currentPassword)
     formData.append("newPassword", newPassword)
     formData.append("confirmNewPassword", confirmNewPassword)
-    dispatch(updatePassword())
+    dispatch(updatePassword(formData))
   }
 
   if (!isAuthPopupOpen || !authUser) return null;
@@ -89,6 +89,7 @@ const ProfilePanel = () => {
               <input type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-2 rounded border border-border bg-secondary text-foreground" />
 
               <label className="flex items-center gap-2 cursor-pointer text-sm text-muted-foreground">
+                <Upload className="w-4 h-4 text-primary" />
                 <span>Upload Avatar</span>
 
                 {/* For Avatar */}
