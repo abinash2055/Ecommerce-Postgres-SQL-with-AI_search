@@ -5,7 +5,7 @@ import { isAuthenticated, authorizedRoles } from "../middlewares/authMiddleware.
 const router = express.Router();
 
 router.post("/admin/create", isAuthenticated, authorizedRoles("Admin"), createProduct);
-router.post("/", fetchAllProducts);
+router.get("/", fetchAllProducts);
 router.put("/admin/update/:productId", isAuthenticated, authorizedRoles("Admin"), updateProduct);
 router.delete("/admin/delete/:productId", isAuthenticated, authorizedRoles("Admin"), deleteProduct);
 router.get("/singleProduct/:productId", fetchSingleProduct);
