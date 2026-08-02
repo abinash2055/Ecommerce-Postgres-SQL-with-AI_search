@@ -12,18 +12,11 @@ const AISearchModal = () => {
   const { isAIPopupOpen } = useSelector((state) => state.popup);
 
   const exampleText = [
-    "Show me gaming laptops under $1000",
-    "I need a lightweight laptop for college students",
-    "Find wireless headphones with noise cancellation",
+    "Show me gaming monitors under $1000",
+    "I need a lightweight speaker for students",
+    "Find wireless smart watch",
     "Show me the best smartphones under $500",
     "I'm looking for running shoes for men",
-    "Recommend a comfortable office chair for long working hours",
-    "Show me top-rated mechanical keyboards",
-    "Find a 4K monitor for programming and gaming",
-    "I want a waterproof smartwatch with GPS",
-    "Show me budget Bluetooth speakers with good bass",
-    "Recommend gifts for a photography enthusiast",
-    "Find kitchen appliances for a small apartment"
   ]
 
   const dispatch = useDispatch();
@@ -36,7 +29,7 @@ const AISearchModal = () => {
   if (!isAIPopupOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => dispatch(toggleAIModal())}>
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-background/95 backdrop-blur-md border 
       border-border rounded-2xl p-8 w-full max-w-2xl">
 

@@ -8,7 +8,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     const maxVisible = 5;
 
     if (totalPages <= maxVisible) {
-      for (let i = 0; i <= totalPages; i++) {
+      for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
@@ -46,11 +46,13 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         </button>
 
         {/* Page Number */}
-        {getPageNumbers().map((page, index) => { return (
-          <button key={index} disabled={page === "...."} onClick={() => typeof page === "number" && onPageChange(page)} className={`px-2 py-2 rounded-lg font-medium transition-all ${page === currentPage ? "gradient-primary text-primary-foreground" : page === "...." ? "cursor-default text-muted-foreground" : "glass-card hover:glow-on-hover text-foreground hover:text-primary"}`}>
-            {page}
-          </button>
-        )})}
+        {getPageNumbers().map((page, index) => {
+          return (
+            <button key={index} disabled={page === "...."} onClick={() => typeof page === "number" && onPageChange(page)} className={`px-2 py-2 rounded-lg font-medium transition-all ${page === currentPage ? "gradient-primary text-primary-foreground" : page === "...." ? "cursor-default text-muted-foreground" : "glass-card hover:glow-on-hover text-foreground hover:text-primary"}`}>
+              {page}
+            </button>
+          )
+        })}
 
         {/* Next Button */}
         <button disabled={currentPage === totalPages} onClick={() => onPageChange(currentPage + 1)} className="p-2 glass-card hover:glow-on-hover animate-mooth disabled:opacity-50 disabled:cursor-not-allowed">
