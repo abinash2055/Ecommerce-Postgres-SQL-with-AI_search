@@ -64,7 +64,7 @@ const CartSidebar = () => {
                           {/* Quantity of Product Control */}
                           <div className="flex items-center space-x-2 mt-2">
                             {/* Minus quantity */}
-                            <button className="p-1 rounded glass-card hover:glow-on-hover animate-smooth" onClick={() => { updateQuantity(item.product.id, item.quantity - 1) }}>
+                            <button disabled={item.quantity === 1} className="p-1 rounded glass-card hover:glow-on-hover animate-smooth" onClick={() => { updateQuantity(item.product.id, item.quantity - 1) }}>
                               <Minus className="w-4 h-4" />
                             </button>
 
