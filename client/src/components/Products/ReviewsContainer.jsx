@@ -38,7 +38,7 @@ const ReviewsContainer = ({ product, productReviews }) => {
 
           <textarea value={comment} onChange={(e) => setComment(e.target.value)} rows={4} placeholder="Write your Reviews...." className="w-full p-3 rounded-md border-border bg-background text-foreground" />
 
-          <button type="submit" disabled={isPostingReview} className="px-6 py-2 rounded-lg bg-primary text-white font-semibold hover:glow-on-hover animate-smooth disabled:opacity-50">
+          <button type="submit" disabled={isPostingReview} className="px-6 py-2 rounded-lg bg-primary font-semibold text-primary-foreground hover:glow-on-hover animate-smooth disabled:opacity-50">
             {isPostingReview ? "Submitting...." : "Submit Review"}
           </button>
         </form>
