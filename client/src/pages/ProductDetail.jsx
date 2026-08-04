@@ -18,9 +18,18 @@ const ProductDetail = () => {
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [activeTab, setActiveTab] = useState("description")
+  const [inWishlist, setInWishlist] = useState(false)
 
   const handleAddToCart = () => {
     dispatch(addToCart({ product, quantity }))
+  }
+
+  const handleToggleWishlist = () => {
+    setInWishlist((prev) => {
+      const next = !prev;
+      toast.success(next ? "Added to Wishlist" : "Removed from Wishlist");
+      return next;
+    });
   }
 
   const handleCopyURL = () => {
@@ -166,8 +175,8 @@ const ProductDetail = () => {
                   </div>
 
                   <div className="flex items-center space-x-4 mt-4">
-                    <button className="flex items-center space-x-2 text-muted-foreground hover:text-primary animate-smooth">
-                      <Heart className="w-5 h-5" />
+                    <button onClick={handleToggleWishlist} className={`flex items-center space-x-2 animate-smooth ${inWishlist ? "text-red-500" : "text-muted-foreground hover:text-primary"}`}>
+                      <Heart className={`w-5 h-5 ${inWishlist ? "fill-current" : ""}`} />
                       <span>Add to Wishlist</span>
                     </button>
 
