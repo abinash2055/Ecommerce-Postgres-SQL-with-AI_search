@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Filter, Package, Truck, CheckCircle, XCircle } from "lucide-react";
+import { Filter, Package, Truck, CheckCircle, XCircle, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchMyOrders } from "../store/slices/orderSlice";
 
+const statusSteps = ["Processing", "Shipped", "Delivered", "Cancelled"];
+
+const getStepIndex = (status) => {
+  switch (status) {
+    case "Processing": return 0;
+    case "Shipped": return 1;
+    case "Delivered": return 2;
+    case "Cancelled": return 3;
+    default: return 0;
+  }
+};
+
 const Orders = () => {
 
   const [statusFilter, setStatusFlter] = useState("All")
+  const [trackOrderId, setTrackOrderId] = useState(null)
   const { myOrders } = useSelector((state) => state.order)
   const dispatch = useDispatch()
 
@@ -68,6 +81,9 @@ const Orders = () => {
   const navigateTo = useNavigate();
 
   if (!authUser) return navigateTo("/products")
+
+  const selectedOrder = trackOrderId ? myOrders.find((o) => o.id === trackOrderId) : null;
+  const currentStep = selectedOrder ? getStepIndex(selectedOrder.order_status) : 0;
 
   return (
     <>
@@ -171,7 +187,7 @@ const Orders = () => {
                     {/* Order Action */}
                     <div className="flex flex-wrap gap-3 mt-6 pt-6 border-t border-[hsla(var(--glass-border))]">
                       <button onClick={() => navigateTo(`/product/${order.order_items[0]?.product_id}`)} className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">View Details</button>
-                      <button className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">Track Order</button>
+                      <button onClick={() => setTrackOrderId(order.id)} className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">Track Order</button>
 
                       {order.status === "Delivered" && (
                         <>
@@ -189,6 +205,72 @@ const Orders = () => {
           )}
         </div>
       </div>
+
+      {/* Track Order Modal */}
+      {trackOrderId && selectedOrder && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 backdrop-blur-md bg-[hsla(var(--glass-bg))]" onClick={() => setTrackOrderId(null)} />
+          <div className="relative z-10 glass-panel w-full max-w-lg mx-4 animate-fade-in-up">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-xl font-bold text-primary">Track Order</h2>
+                <div className="space-y-1 mt-1">
+                  {selectedOrder?.order_items?.map((item) => (
+                    <p key={item.product_id} className="text-xl font-bold text-foreground">{item.title}</p>
+                  ))}
+                </div>
+              </div>
+              <button onClick={() => setTrackOrderId(null)} className="p-2 rounded-lg glass-card hover:glow-on-hover animate-smooth">
+                <X className="w-5 h-5 text-primary" />
+              </button>
+            </div>
+
+            {/* Status Timeline */}
+            <div className="space-y-4">
+              {statusSteps.map((step, index) => {
+                const isActive = index <= currentStep;
+                const isCurrent = index === currentStep;
+                const isCancelled = selectedOrder.order_status === "Cancelled" && index === 3;
+
+                return (
+                  <div key={step} className="flex items-center gap-4">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${isActive ? (isCancelled ? "bg-red-500/20 text-red-400" : "gradient-primary text-primary-foreground") : "bg-secondary text-muted-foreground"}`}>
+                      {isCancelled ? (
+                        <XCircle className="w-5 h-5" />
+                      ) : isActive ? (
+                        <CheckCircle className="w-5 h-5" />
+                      ) : (
+                        <Package className="w-5 h-5" />
+                      )}
+                    </div>
+                    <div className="flex-1">
+                      <p className={`font-medium capitalize ${isActive ? "text-foreground" : "text-muted-foreground"}`}>{step}</p>
+                      {isCurrent && (
+                        <p className="text-sm text-primary font-medium">Current Status</p>
+                      )}
+                    </div>
+                    {index < statusSteps.length - 1 && (
+                      <div className={`w-8 h-0.5 ${index < currentStep ? "gradient-primary" : "bg-secondary"}`} />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Order Summary in Modal */}
+            <div className="mt-6 pt-4 border-t border-[hsla(var(--glass-border))]">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Total</span>
+                <span className="font-bold text-primary">${selectedOrder.total_price}</span>
+              </div>
+              <div className="flex justify-between text-sm mt-2">
+                <span className="text-muted-foreground">Placed on</span>
+                <span className="text-foreground">{new Date(selectedOrder.created_at).toLocaleDateString()}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
