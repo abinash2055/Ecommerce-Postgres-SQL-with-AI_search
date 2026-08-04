@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Linkedin, Github } from "lucide-react";
+import { toast } from "react-toastify";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
   const footerLinks = {
     company: [
       { name: "About Us", path: "/about" },
@@ -33,6 +36,12 @@ const Footer = () => {
     { icon: Linkedin, href: "https://www.linkedin.com/in/abinashnathpandey/", label: "Linkedin" },
     { icon: Github, href: "https://github.com/abinash2055", label: "Github" },
   ];
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    toast.success("Thanks for Subscribbing this Website....");
+    setEmail("");
+  };
 
   return (
     <footer className="glass border-t border-[hsla(var(--glass-border))] mt-16">
@@ -109,8 +118,8 @@ const Footer = () => {
             <p className="text-muted-foreground">Subscribe to our newsletter for exclusive offers and updates</p>
           </div>
 
-          <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input type="email" placeholder="Enter your email" className="flex-1 px-4 py-3 bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-foreground placeholder-muted-foreground" />
+          <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onSubmit={handleSubscribe}>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" className="flex-1 px-4 py-3 bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-foreground placeholder-muted-foreground" />
             <button type="submit" className="px-6 py-3 gradient-primary text-primary-foreground rounded-lg hover:glow-on-hover animate-smooth font-semibold">Subscribe</button>
           </form>
         </div>
