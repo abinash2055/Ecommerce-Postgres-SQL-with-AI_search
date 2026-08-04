@@ -1,14 +1,22 @@
 
 
-    Time Ended    ----> 16.29.56
-
+    Time Ended    ----> Dashboard    -----> 17.47.35 <-----
 
 
 During Payment Method in Terminal you should run 
 
 stripe listen --forward-to localhost:4000/api/v1/payment/webhook
 
-
+Generally,
 stripe listen --forward-to localhost:{server-portNumber}/{payment-URL}/webhook
+
+
+Problem 1:--> confusion as it shows payment successfull. then it should only show product in My Orders....
+
+Problem 2:--> For AI Search Gemini API key is Finished....
+
+Problem 3:--> Review Not working Completely....
+
+
 
 to get stripe webhook secret key, and it need to be changed after 80 days  

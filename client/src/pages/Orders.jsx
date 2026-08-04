@@ -170,7 +170,7 @@ const Orders = () => {
 
                     {/* Order Action */}
                     <div className="flex flex-wrap gap-3 mt-6 pt-6 border-t border-[hsla(var(--glass-border))]">
-                      <button className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">View Details</button>
+                      <button onClick={() => navigateTo(`/product/${order.order_items[0]?.product_id}`)} className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">View Details</button>
                       <button className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">Track Order</button>
 
                       {order.status === "Delivered" && (
@@ -194,3 +194,4 @@ const Orders = () => {
 };
 
 export default Orders;
+
