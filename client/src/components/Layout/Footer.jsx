@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Linkedin, Github } from "lucide-react";
 
 const Footer = () => {
   const footerLinks = {
@@ -26,10 +26,12 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Youtube, href: "#", label: "YouTube" },
+    { icon: Facebook, href: "https://www.facebook.com/abinash.nath.pandey", label: "Facebook" },
+    { icon: Twitter, href: "https://x.com/Abin_ash_056", label: "Twitter" },
+    { icon: Instagram, href: "https://www.instagram.com/abin.ash_056/", label: "Instagram" },
+    { icon: Youtube, href: "https://www.youtube.com/@abinashnathpandey9466", label: "YouTube" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/abinashnathpandey/", label: "Linkedin" },
+    { icon: Github, href: "https://github.com/abinash2055", label: "Github" },
   ];
 
   return (
@@ -39,13 +41,13 @@ const Footer = () => {
 
           {/* Brand & Contact */}
           <div className="lg:col-span-1">
-            <h2 className="text-2xl font-bold gradient-primary bg-clip-text text-transparent mb-4">ShopMate</h2>
+            <h2 className="text-2xl font-bold gradient-primary bg-clip-text text-transparent mb-4">Personal Signature</h2>
             <p className="text-muted-foreground mb-6">Your trusted partner for online shopping. Discover amazing products with exceptional quality and service.</p>
 
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-muted-foreground">
                 <Mail className="w-5 h-5 text-primary" />
-                <span>support@shopmate.com</span>
+                <span>support@personalsignature.com</span>
               </div>
 
               <div className="flex items-center space-x-3 text-muted-foreground">
@@ -117,14 +119,14 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-[hsla(var(--glass-border))]">
           <div className="flex items-center space-x-4 mb-4 md:mb-0">
             {socialLinks.map((social) => (
-              <a key={social.label} href={social.href} aria-label={social.label} className="p-2 glass-card hover:glow-on-hover animate-smooth">
+              <a key={social.label} href={social.href} aria-label={social.label} target="_blank" rel="noopener noreferrer" className="p-2 glass-card hover:glow-on-hover animate-smooth">
                 <social.icon className="w-5 h-5 text-primary" />
               </a>
             ))}
           </div>
 
           <div className="text-center md:text-right">
-            <p className="text-muted-foreground text-sm">© 2024 ShopMate. All rights reserved.</p>
+            <p className="text-muted-foreground text-sm">© 2024 Personal Signature. All rights reserved.</p>
             <p className="text-muted-foreground text-xs mt-1">Developed By Personal Signature</p>
           </div>
         </div>
