@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Star, ShoppingCart, Heart, Share2, Plus, Minus, Loader } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Star, ShoppingCart, Heart, Share2, Plus, Minus, Loader, CircleDollarSign } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import ReviewsContainer from "../components/Products/ReviewsContainer";
 import { addToCart } from "../store/slices/cartSlice";
 import { fetchProductDetails } from "../store/slices/productSlice";
+import { toast } from "react-toastify";
 
 const ProductDetail = () => {
 
@@ -20,6 +21,21 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     dispatch(addToCart({ product, quantity }))
+  }
+
+  const handleCopyURL = () => {
+    const currentURL = window.location.href;
+    navigator.clipboard.writeText(currentURL).then(() => {
+      toast.success("URL Copied....", currentURL);
+    }).catch((err) => {
+      console.error("Failed to Copy....", err)
+    })
+  }
+
+  const navigateTo = useNavigate();
+  const handleBuyNow = () => {
+    dispatch(addToCart({ product, quantity }));
+    navigateTo("/payment")
   }
 
   useEffect(() => {
@@ -143,7 +159,10 @@ const ProductDetail = () => {
                       <span>Add to Cart</span>
                     </button>
 
-                    <button disabled={product.stock === 0} className="py-3 bg-secondary text-foreground border border-border rounded-lg hover:bg-accent animate-smooth font-semibold disabled:opacity-50 disabled:cursor-not-allowed">Buy Now</button>
+                    <button disabled={product.stock === 0} className="flex items-center justify-center space-x-2 py-3 gradient-primary text-primary-foreground rounded-lg hover:glow-on-hover animate-smooth font-semibold disabled:opacity-50 disabled:cursor-not-allowed" onClick={handleBuyNow}>
+                      <CircleDollarSign className="w-5 h-5" />
+                      <span>Buy Now</span>
+                    </button>
                   </div>
 
                   <div className="flex items-center space-x-4 mt-4">
@@ -152,7 +171,7 @@ const ProductDetail = () => {
                       <span>Add to Wishlist</span>
                     </button>
 
-                    <button className="flex items-center space-x-2 text-muted-foreground hover:text-primary animate-smooth">
+                    <button onClick={handleCopyURL} className="flex items-center space-x-2 text-muted-foreground hover:text-primary animate-smooth">
                       <Share2 className="w-5 h-5" />
                       <span>Share</span>
                     </button>

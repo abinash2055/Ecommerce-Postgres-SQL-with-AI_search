@@ -1,6 +1,14 @@
 
 
-    Time Ended    ----> 15.06.24
+    Time Ended    ----> 16.29.56
 
 
 
+During Payment Method in Terminal you should run 
+
+stripe listen --forward-to localhost:4000/api/v1/payment/webhook
+
+
+stripe listen --forward-to localhost:{server-portNumber}/{payment-URL}/webhook
+
+to get stripe webhook secret key, and it need to be changed after 80 days  

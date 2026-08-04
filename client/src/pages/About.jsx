@@ -2,10 +2,10 @@ import { Users, Target, Award, Heart } from 'lucide-react';
 
 const About = () => {
   const values = [
-    { icon: Heart, title: 'Customer First', description: 'We put our customers at the heart of everything we do.' },
-    { icon: Award, title: 'Quality Products', description: 'We ensure all products meet our high standards.' },
-    { icon: Users, title: 'Community', description: 'Building lasting relationships with our customers.' },
-    { icon: Target, title: 'Innovation', description: 'Constantly improving our platform and services.' }
+    { icon: Heart, title: 'Customer First', description: 'We put our customers at the heart of everything we do....' },
+    { icon: Award, title: 'Quality Products', description: 'We ensure all products meet our high standards....' },
+    { icon: Users, title: 'Community', description: 'Building lasting relationships with our customers....' },
+    { icon: Target, title: 'Innovation', description: 'Constantly improving our platform and services....' }
   ];
 
   return (
@@ -13,7 +13,7 @@ const About = () => {
       <div className="max-w-4xl mx-auto px-4 py-16">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-foreground mb-6">About ShopMate</h1>
-          <p className="text-xl text-muted-foreground"> Your trusted e-commerce platform for quality products and exceptional service.</p>
+          <p className="text-xl text-muted-foreground"> Your trusted e-commerce platform for quality products and exceptional service....</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
@@ -29,7 +29,7 @@ const About = () => {
 
         <div className="bg-secondary rounded-xl p-8">
           <h2 className="text-2xl font-bold text-foreground mb-4">Our Story</h2>
-          <p className="text-muted-foreground leading-relaxed">Founded with a vision to make online shopping simple and enjoyable, ShopMate has grown to become a trusted platform for thousands of customers worldwide. We believe that everyone deserves access to quality products at fair prices, backed by exceptional customer service.</p>
+          <p className="text-muted-foreground leading-relaxed">Founded with a vision to make online shopping simple and enjoyable, ShopMate has grown to become a trusted platform for thousands of customers worldwide. We believe that everyone deserves access to quality products at fair prices, backed by exceptional customer service....</p>
         </div>
       </div>
     </div>

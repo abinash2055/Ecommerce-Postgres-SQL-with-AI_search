@@ -110,6 +110,49 @@ const Cart = () => {
                 )
               })}
             </div>
+
+            <div className="lg:col-span-1">
+              <div className="glass-panel ticky top-24">
+                <h2 className="text-xl font-semibold text-foreground mb-6">Order Summary</h2>
+
+                <div className="space-y-4 mb-6">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Subtotal ({cartItemsCount} items)</span>
+                    <span className="font-semibold">${total.toFixed(2)}</span>
+                  </div>
+
+                  {/* Shipping */}
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Shipping</span>
+                    <span className="font-semibold text-green-500">
+                      {total >= 50 ? "Free" : "$2"}
+                    </span>
+                  </div>
+
+                  {/* For Tax */}
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Tax</span>
+                    <span className="font-semibold">
+                      ${(total * 0.13).toFixed(2)}
+                    </span>
+                  </div>
+
+                  {/* Total Price */}
+                  <div className="border-t border-[hsla(var(--glass-border))] pt-4">
+                    <div className="flex justify-between">
+                      <span className="text-lg font-semibold">Total</span>
+                      <span>${(total + total * 0.13).toFixed(2)}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {authUser && (
+                  <Link to={"/payment"} className="w-full block text-center py-4 gradient-primary text-primary-foreground rounded-lg hover:glow-on-hover animate-smooth font-semibold mb-4">Proceed To Checkout</Link>
+                )}
+
+                <Link to={"/products"} className="w-full block text-center py-4 bg-secondary text-foreground rounded-lg animate-smooth font-semibold mb-4 border-border hover:bg-accent">Continue Shopping</Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

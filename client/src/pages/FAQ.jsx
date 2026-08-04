@@ -5,10 +5,10 @@ const FAQ = () => {
   const [openItems, setOpenItems] = useState({});
 
   const faqs = [
-    { question: 'How do I place an order?', answer: 'Simply browse our products, add items to your cart, and proceed to checkout. Follow the prompts to complete your order.' },
-    { question: 'What payment methods do you accept?', answer: 'We accept all major credit cards, PayPal, and other secure payment methods.' },
-    { question: 'How long does shipping take?', answer: 'Standard shipping takes 3-5 business days. Express shipping options are available at checkout.' },
-    { question: 'What is your return policy?', answer: 'We offer a 30-day return policy for most items. Items must be in original condition with tags attached.' }
+    { question: 'How do I place an order?', answer: 'Simply browse our products, add items to your cart, and proceed to checkout. Follow the prompts to complete your order....' },
+    { question: 'What payment methods do you accept?', answer: 'We accept all major credit cards, PayPal, and other secure payment methods....' },
+    { question: 'How long does shipping take?', answer: 'Standard shipping takes 3-5 business days. Express shipping options are available at checkout....' },
+    { question: 'What is your return policy?', answer: 'We offer a 30-day return policy for most items. Items must be in original condition with tags attached....' }
   ];
 
   const toggleItem = (index) => { setOpenItems(prev => ({ ...prev, [index]: !prev[index] })); };
