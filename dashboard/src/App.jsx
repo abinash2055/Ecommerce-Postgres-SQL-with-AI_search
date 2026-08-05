@@ -9,8 +9,13 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import { ToastContainer } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function App() {
+
+  const { openedComponent } = useSelector((state) => state.extra);
+
+  const renderDashboardContent = () => { }
 
   return (
     <Router>
@@ -18,7 +23,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />
-        
+
         {/* Protected Admin Route */}
         <Route
           path="/"
