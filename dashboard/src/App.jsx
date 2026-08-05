@@ -10,6 +10,8 @@ import Orders from "./components/Orders";
 import Users from "./components/Users";
 import Profile from "./components/Profile";
 import Products from "./components/Products";
+import { useEffect } from "react";
+import { getUser } from "./store/slices/authSlice";
 
 
 function App() {
@@ -18,6 +20,10 @@ function App() {
 
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser())
+  },[])
 
 
   const renderDashboardContent = () => {
@@ -45,30 +51,30 @@ function App() {
       default:
         return <Dashboard />;
     }
-}
+  }
 
-return (
-  <Router>
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/password/forgot" element={<ForgotPassword />} />
-      <Route path="/password/reset/:token" element={<ResetPassword />} />
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/password/forgot" element={<ForgotPassword />} />
+        <Route path="/password/reset/:token" element={<ResetPassword />} />
 
-      {/* Protected Admin Route */}
-      <Route path="/" element={isAuthenticated && user?.role === "Admin" ? (
-        <div className="flex min-h-screen">
-          <SideBar />
-          {renderDashboardContent()}
-        </div>
-      ) : (
-        <Navigate to="/login" replace />
-      )
-      } />
-    </Routes>
+        {/* Protected Admin Route */}
+        <Route path="/" element={isAuthenticated && user?.role === "Admin" ? (
+          <div className="flex min-h-screen">
+            <SideBar />
+            {renderDashboardContent()}
+          </div>
+        ) : (
+          <Navigate to="/login" replace />
+        )
+        } />
+      </Routes>
 
-    <ToastContainer theme="dark" />
-  </Router>
-);
+      <ToastContainer theme="dark" />
+    </Router>
+  );
 }
 
 export default App;
