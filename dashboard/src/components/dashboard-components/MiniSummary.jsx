@@ -1,5 +1,5 @@
 import React from "react";
-import {allet, PackageCheck, TrendingUp, AlertTriangle, BarChart4, UserPlus } from "lucide-react";
+import {Wallet, PackageCheck, TrendingUp, AlertTriangle, BarChart4, UserPlus } from "lucide-react";
 import { useSelector } from "react-redux";
 
 const MiniSummary = () => {
