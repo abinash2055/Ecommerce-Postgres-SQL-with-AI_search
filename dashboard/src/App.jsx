@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import SideBar from "./components/SideBar";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -25,20 +20,17 @@ function App() {
         <Route path="/password/reset/:token" element={<ResetPassword />} />
 
         {/* Protected Admin Route */}
-        <Route
-          path="/"
-          element={
-            isAuthenticated && user?.role === "Admin" ? (
-              <div className="flex min-h-screen">
-                <SideBar />
-                {renderDashboardContent()}
-              </div>
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
+        <Route path="/" element={isAuthenticated && user?.role === "Admin" ? (
+          <div className="flex min-h-screen">
+            <SideBar />
+            {renderDashboardContent()}
+          </div>
+        ) : (
+          <Navigate to="/login" replace />
+        )
+        } />
       </Routes>
+
       <ToastContainer theme="dark" />
     </Router>
   );
