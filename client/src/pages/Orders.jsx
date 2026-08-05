@@ -189,7 +189,7 @@ const Orders = () => {
                       <button onClick={() => navigateTo(`/product/${order.order_items[0]?.product_id}`)} className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">View Details</button>
                       <button onClick={() => setTrackOrderId(order.id)} className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">Track Order</button>
 
-                      {order.status === "Delivered" && (
+                      {order.order_status === "Delivered" && (
                         <>
                           <button className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">Write Review</button>
 

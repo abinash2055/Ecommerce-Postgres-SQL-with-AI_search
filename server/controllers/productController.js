@@ -111,7 +111,7 @@ export const fetchAllProducts = catchAsyncErrors(async (req, res, next) => {
     const newProductsResult = await database.query(newProductsQuery);
 
     // QUERY FOR FETCHING TOP RATING PRODUCTS (rating >= 4.5)
-    const topRatedQuery = `SELECT p.*, COUNT(r.id) AS review_count FROM products p LEFT JOIN reviews r ON p.id = r.product_id WHERE p.ratings >= 4.5 GROUP BY p.id ORDER BY p.ratings DESC, p.created_at DESC LIMIT 8`;
+    const topRatedQuery = `SELECT p.*, COUNT(r.id) AS review_count FROM products p LEFT JOIN reviews r ON p.id = r.product_id WHERE p.ratings >= 4.5 GROUP BY p.id HAVING COUNT(r.id) > 0 ORDER BY p.ratings DESC, p.created_at DESC LIMIT 8`;
 
     const topRatedResult = await database.query(topRatedQuery);
 
@@ -184,14 +184,6 @@ export const postProductReview = catchAsyncErrors(async (req, res, next) => {
 
     if (!rating || !comment) {
         return next(new ErrorHandler("Please provide rating and comment....", 400));
-    }
-
-    const purchasheCheckQuery = `SELECT oi.product_id FROM order_items oi JOIN orders o ON o.id = oi.order_id JOIN payments p ON p.order_id = o.id WHERE o.buyer_id = $1 AND oi.product_id = $2 AND p.payment_status = 'Paid' LIMIT 1 `;
-
-    const { rows } = await database.query(purchasheCheckQuery, [req.user.id, productId]);
-
-    if (rows.length === 0) {
-        return res.status(403).json({ success: false, message: "You can only review a product only if you've purchased...." });
     }
 
     const product = await database.query("SELECT * FROM products WHERE id = $1", [productId]);

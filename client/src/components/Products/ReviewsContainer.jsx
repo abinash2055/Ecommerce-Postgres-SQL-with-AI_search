@@ -71,7 +71,7 @@ const ReviewsContainer = ({ product, productReviews }) => {
 
                     <p className="text-muted-foreground mb-2">{review.comment}</p>
                     {authUser?.id === review.reviewer?.id && (
-                      <button onClick={() => dispatch(deleteReview(product.id, review.review_id))} className="my-6 w-fit flex items-center space-x-3 p-3 rounded-lg glass-card hover:glow-on-hover text-destructive hover:text-destructive-foreground group">
+                      <button onClick={() => dispatch(deleteReview({ productId: product.id, reviewId: review.review_id }))} className="my-6 w-fit flex items-center space-x-3 p-3 rounded-lg glass-card hover:glow-on-hover text-destructive hover:text-destructive-foreground group">
                         {isReviewDeleting ? (
                           <>
                             <div className="w-5 h-5 border-2 border-white border-t-tranparent rounded-full animate-spin" />{" "}
