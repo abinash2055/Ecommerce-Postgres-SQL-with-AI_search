@@ -1,6 +1,6 @@
 
 
-    Time Ended    ----> Dashboard    -----> 17.47.35 <-----
+    Time Ended  ::  17.47.35
 
 
 During Payment Method in Terminal you should run 
