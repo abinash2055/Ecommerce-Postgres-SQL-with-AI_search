@@ -23,12 +23,13 @@ function App() {
 
   useEffect(() => {
     dispatch(getUser())
-  },[])
+  }, [])
 
 
   const renderDashboardContent = () => {
     switch (openedComponent) {
-      case "Dashboard":
+      // case "Dashboard":
+      case "Dashboardd":   
         <Dashboard />
         break;
 
@@ -49,7 +50,8 @@ function App() {
         break;
 
       default:
-        return <Dashboard />;
+        // return <Dashboard />;
+        return <Profile />;
     }
   }
 
