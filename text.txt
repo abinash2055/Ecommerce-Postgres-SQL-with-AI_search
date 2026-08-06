@@ -1,6 +1,6 @@
 
 
-    Time Ended  ::  17.47.35
+    Time Ended  ::  19.24.15
 
 
 During Payment Method in Terminal you should run 

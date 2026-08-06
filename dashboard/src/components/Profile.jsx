@@ -40,9 +40,9 @@ const Profile = () => {
 
   const updatePassword = () => {
     const formData = new FormData();
-    formData.append("currentPassword", editData.currentPassword);
-    formData.append("newPassword", editData.newPassword);
-    formData.append("confirmNewPassword", editData.confirmNewPassword);
+    formData.append("currentPassword", passwordData.currentPassword);
+    formData.append("newPassword", passwordData.newPassword);
+    formData.append("confirmNewPassword", passwordData.confirmNewPassword);
     setUpdatingSection("Password")
     dispatch(updateAdminPassword(formData))
   }
@@ -100,9 +100,9 @@ const Profile = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input type="password" name="currentPassword" value={passwordData.currentPassword} onChange={handlePasswordChange} className="p-2 border rounded-md" placeholder="Your Current Password" />
 
-              <input type="password" name="newPassword" value={editData.newPassword} onChange={handlePasswordChange} className="p-2 border rounded-md" placeholder="Type New Password" />
+              <input type="password" name="newPassword" value={passwordData.newPassword} onChange={handlePasswordChange} className="p-2 border rounded-md" placeholder="Type New Password" />
 
-              <input type="password" name="confirmNewPassword" value={editData.confirmNewPassword} onChange={handlePasswordChange} className="p-2 border rounded-md" placeholder="Confirm New Password" />
+              <input type="password" name="confirmNewPassword" value={passwordData.confirmNewPassword} onChange={handlePasswordChange} className="p-2 border rounded-md" placeholder="Confirm New Password" />
             </div>
 
             <button onClick={updatePassword} className="flex justify-center items-center gap-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 mt-4 transition-all" disabled={loading}>
