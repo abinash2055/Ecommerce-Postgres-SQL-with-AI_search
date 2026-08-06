@@ -29,29 +29,23 @@ function App() {
   const renderDashboardContent = () => {
     switch (openedComponent) {
       // case "Dashboard":
-      case "Dashboardd":   
-        <Dashboard />
-        break;
+      case "Dashboardd":
+        return <Dashboard />;
 
       case "Orders":
-        <Orders />
-        break;
+        return <Orders />;
 
       case "Users":
-        <Users />
-        break;
+        return <Users />;
 
       case "Profile":
-        <Profile />
-        break;
+        return <Profile />;
 
       case "Products":
-        <Products />
-        break;
+        return <Products />;
 
       default:
-        // return <Dashboard />;
-        return <Profile />;
+        return <Dashboard />;
     }
   }
 

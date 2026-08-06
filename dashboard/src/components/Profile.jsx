@@ -62,7 +62,7 @@ const Profile = () => {
 
           {/* Profile Card */}
           <div className="bg-white shadow-md rounded-2xl p-6 flex flex-col md:flex-row items-center gap-6 mb-10">
-            <img src={user && user?.avatar?.url || avatar} alt={user?.name || avatar} className="w-32 h-32 rounded-full object-cover" border loading="lazy" />
+            <img src={user && user?.avatar?.url || avatar} alt={user?.name || avatar} className="w-32 h-32 rounded-full border object-cover" loading="lazy" />
 
             <div>
               <p className="text-xl font-medium">Name: {user.name}</p>
