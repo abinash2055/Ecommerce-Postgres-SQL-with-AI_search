@@ -12,7 +12,7 @@ import Profile from "./components/Profile";
 import Products from "./components/Products";
 import { useEffect } from "react";
 import { getUser } from "./store/slices/authSlice";
-import { fetchAllUsers } from "./store/slices/adminSlice";
+import { fetchAllUsers, getDashboardStats } from "./store/slices/adminSlice";
 import { fetchAllProducts } from "./store/slices/productsSlice";
 
 
@@ -29,7 +29,7 @@ function App() {
 
   useEffect(() => {
     if (isAuthenticated){
-      dispatch(fetchAllUsers())
+      dispatch(getDashboardStats())
       dispatch(fetchAllProducts())
     }
   }, [isAuthenticated])

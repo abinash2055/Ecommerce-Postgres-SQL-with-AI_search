@@ -4,12 +4,13 @@ import { PieChart, Pie, Tooltip, ResponsiveContainer, Cell } from "recharts";
 const OrdersChart = () => {
   const { orderStatusCounts } = useSelector((state) => state.admin);
 
-  const statusColors = {
-    Processing: "#facc15", // yellow
-    Shipped: "#3b82f6", // blue
-    Delivered: "#22c55e", // green
-    Cancelled: "#ef4444", // red
-  };
+  // Processing -> Yellow color given by me
+  // Shipped -> Blue color given by me
+  // Delivered -> Gren color given by me
+  // Cancelled -> Red color given by me
+
+  const statusColors = { Processing: "#facc15", Shipped: "#3b82f6", Delivered: "#22c55e", Cancelled: "#ef4444" };
+  
   const orderStatusData = Object.keys(orderStatusCounts).map((status) => ({
     status, count: parseInt(orderStatusCounts[status]),
   }));
@@ -25,10 +26,10 @@ const OrdersChart = () => {
             <Pie data={orderStatusData} dataKey="count"
               nameKey="status" cx="50%" cy="50%" outerRadius={80} label>
               {orderStatusData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={statusColors[entry.status] || "#ccc"}/> // fallback color
+                <Cell key={`cell-${index}`} fill={statusColors[entry.status] || "#ccc"} /> // fallback color
               ))}
             </Pie>
-            
+
             <Tooltip />
           </PieChart>
         </ResponsiveContainer>
