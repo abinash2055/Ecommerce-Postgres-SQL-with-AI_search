@@ -37,7 +37,7 @@ export const adminSlice = createSlice({
     },
     deleteUserSuccess(state, action) {
       state.loading = false;
-      state.users = action.users.filter(user => user.id !== action.payload);
+      state.users = state.users.filter(user => user.id !== action.payload);
       state.totalUsers = Math.max(0, state.totalUsers - 1);
       state.totalUsersCount = Math.max(0, state.totalUsersCount - 1);
     },
