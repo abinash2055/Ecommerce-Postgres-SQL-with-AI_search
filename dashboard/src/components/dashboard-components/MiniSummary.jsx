@@ -1,74 +1,121 @@
 import React from "react";
-import { Wallet, PackageCheck, TrendingUp, AlertTriangle, BarChart4, UserPlus } from "lucide-react";
-import { useSelector } from "react-redux";
+import {
+  Wallet,
+  PackageCheck,
+  TrendingUp,
+  AlertTriangle,
+  BarChart4,
+  UserPlus,
+} from "lucide-react";
 
 const MiniSummary = () => {
-
-  const { topSellingProducts, lowStockProducts, revenueGrowth, newUsersThisMonth, currentMonthSales, orderStatusCounts } = useSelector((state) => state.admin)
-
-  let totalOrders = 0;
-  totalOrders = Object.values(orderStatusCounts).reduce((acc, count) => acc + count, 0);
-
-  const summary = [
+  const summaryData = [
     {
-      text: "Total Sales this Month",
-      subText: `This month's sales: NPR ${currentMonthSales * 153}`,
-      icon: <Wallet className="text-green-600" />
+      title: "Today's Revenue",
+      value: "$12,450",
+      subtitle: "+18.2% from yesterday",
+      icon: Wallet,
+      iconBg: "bg-green-100",
+      iconColor: "text-green-600",
+      border: "border-green-500",
     },
-
     {
-      text: "Total Orders Placed",
-      subText: `Total Orders placed: ${totalOrders}`,
-      icon: <PackageCheck className="text-blue-600" />
+      title: "Orders Delivered",
+      value: "245",
+      subtitle: "98% successful deliveries",
+      icon: PackageCheck,
+      iconBg: "bg-blue-100",
+      iconColor: "text-blue-600",
+      border: "border-blue-500",
     },
-
     {
-      text: "Top Selling Product",
-      subText: `Best Seller: ${topSellingProducts[0]?.name} (${topSellingProducts[0]?.total_sold} sold)`,
-      icon: <TrendingUp className="text-emerald-600" />
+      title: "Revenue Growth",
+      value: "+23.5%",
+      subtitle: "Compared to last month",
+      icon: TrendingUp,
+      iconBg: "bg-purple-100",
+      iconColor: "text-purple-600",
+      border: "border-purple-500",
     },
-
     {
-      text: "Low Stock Alert",
-      subText: `${lowStockProducts} Products running low on Stock`,
-      icon: <AlertTriangle className="text-red-600" />
+      title: "Low Stock",
+      value: "8",
+      subtitle: "Products need restocking",
+      icon: AlertTriangle,
+      iconBg: "bg-red-100",
+      iconColor: "text-red-600",
+      border: "border-red-500",
     },
-
     {
-      text: "Revenue Growth Rate",
-      subText: `Revenue ${revenueGrowth.includes("+") ? "up" : "down"} by ${revenueGrowth} compares to last month`,
-      icon: <BarChart4 className="text-purple-600" />
+      title: "Monthly Sales",
+      value: "$94.2K",
+      subtitle: "Current month performance",
+      icon: BarChart4,
+      iconBg: "bg-orange-100",
+      iconColor: "text-orange-600",
+      border: "border-orange-500",
     },
-
     {
-      text: "New Customers this Month",
-      subText: `New Customers joined: ${newUsersThisMonth}`,
-      icon: <UserPlus className="text-red-600" />
-    }
-  ]
+      title: "New Customers",
+      value: "124",
+      subtitle: "Joined this month",
+      icon: UserPlus,
+      iconBg: "bg-cyan-100",
+      iconColor: "text-cyan-600",
+      border: "border-cyan-500",
+    },
+  ];
 
   return (
-    <>
-      <div className="bg-white rounded-xl p-6 shadow-md">
-        <h2 className="text-lg font-semibold mb-2">Summary</h2>
-        <p className="text-sm text-gray-500 mb-5">Summary of the key matrics for the current month</p>
+    <section className="w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+        {summaryData.map((item, index) => {
+          const Icon = item.icon;
 
-        <div className="space-y-4">
-          {summary.map((item, index) => {
-            return (
-              <div key={index} className="flex items-center space-x-3">
-                {item.icon}
+          return (
+            <div
+              key={index}
+              className={`group relative overflow-hidden rounded-2xl border-l-4 ${item.border} bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl`}
+            >
+              <div className="absolute top-0 right-0 h-24 w-24 rounded-full bg-gray-100 opacity-20 -translate-y-10 translate-x-10" />
 
+              <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-sm">{item.text}</p>
-                  <p className="text-sm text-0gray-500">{item.subText}</p>
+                  <p className="text-sm font-medium text-gray-500">
+                    {item.title}
+                  </p>
+
+                  <h2 className="mt-2 text-3xl font-bold text-gray-800">
+                    {item.value}
+                  </h2>
+
+                  <p className="mt-2 text-sm text-gray-500">
+                    {item.subtitle}
+                  </p>
+                </div>
+
+                <div
+                  className={`flex h-14 w-14 items-center justify-center rounded-2xl ${item.iconBg}`}
+                >
+                  <Icon
+                    className={`h-7 w-7 ${item.iconColor} transition-transform duration-300 group-hover:scale-110`}
+                  />
                 </div>
               </div>
-            )
-          })}
-        </div>
+
+              <div className="mt-6 h-1 w-full overflow-hidden rounded-full bg-gray-100">
+                <div
+                  className={`h-full rounded-full ${item.iconBg.replace(
+                    "100",
+                    "500"
+                  )} w-3/4`}
+                />
+              </div>
+            </div>
+          );
+        })}
       </div>
-    </>
+    </section>
   );
 };
 

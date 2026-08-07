@@ -1,61 +1,204 @@
-import { useSelector } from "react-redux";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import React from "react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+} from "recharts";
 
 const TopProductsChart = () => {
-
-  const { topSellingProducts } = useSelector((state) => state.admin);
-
-  const CustomYAxisTick = ({ x, y, payload }) => {
-    return (
-      <foreignObject x={x - 36} y={y - 16} width={32} height={32}>
-
-        <img src={payload.value} alt="product" style={{ width: "32px", height: "32px", borderRadius: "50%", objectFit: "cover" }} />
-
-      </foreignObject>
-    );
-  };
-
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length > 0) {
-      const product = payload[0].payload;
-
-      return (
-        <div className="bg-white p-2 rounded shadow border text-sm">
-          <p className="font-semibold">Title: {product.name}</p>
-          <p>Sold: {product.total_sold}</p>
-        </div>
-      );
-    }
-    return null;
-  };
-
+  const products = [
+    {
+      name: "iPhone 16 Pro",
+      sales: 820,
+      revenue: "$246K",
+      color: "#2563eb",
+    },
+    {
+      name: "MacBook Pro",
+      sales: 690,
+      revenue: "$198K",
+      color: "#7c3aed",
+    },
+    {
+      name: "AirPods Pro",
+      sales: 560,
+      revenue: "$102K",
+      color: "#14b8a6",
+    },
+    {
+      name: "Apple Watch",
+      sales: 420,
+      revenue: "$86K",
+      color: "#f59e0b",
+    },
+    {
+      name: "iPad Air",
+      sales: 315,
+      revenue: "$74K",
+      color: "#ef4444",
+    },
+  ];
 
   return (
-    <>
-      <div className="bg-white p-4 rounded-xl shadow-md">
-        <h3 className="font-semibold mb-2">Top Selling Products</h3>
+    <section className="w-full rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
+      {/* Header */}
+      <div className="mb-8 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-800">
+            Top Selling Products
+          </h2>
 
-        <div className="relative">
-          <ResponsiveContainer width="100%" height={250}>
+          <p className="mt-1 text-sm text-gray-500">
+            Best performing products based on sales volume
+          </p>
+        </div>
 
-            <BarChart layout="vertical" data={topSellingProducts.slice(0, 3)} margin={{ top: 0, right: 0, bottom: 0, left: 0 }} barSize={50}>
+        <div className="rounded-full bg-indigo-100 px-5 py-2 text-sm font-semibold text-indigo-700">
+          Top 5 Products
+        </div>
+      </div>
 
-              <XAxis type="number" />
-              <YAxis dataKey="image" type="category" tick={<CustomYAxisTick />} width={50} />
+      <div className="grid grid-cols-1 gap-8 xl:grid-cols-2">
+        {/* Chart */}
+        <div className="h-[360px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={products}
+              margin={{
+                top: 10,
+                right: 20,
+                left: -20,
+                bottom: 10,
+              }}
+            >
+              <XAxis
+                dataKey="name"
+                tick={{ fontSize: 12 }}
+                axisLine={false}
+                tickLine={false}
+              />
 
-              <Tooltip content={<CustomTooltip />} wrapperStyle={{ pointerEvents: "auto"}} />
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                tick={{ fontSize: 12 }}
+              />
 
-              <Bar dataKey="total_sold" radius={[4, 4, 4, 4]} isAnimationActive={false} onMouseEnter={() => {}} onMouseLeave={() => {}}  />
+              <Tooltip
+                cursor={{ fill: "#f3f4f6" }}
+                contentStyle={{
+                  borderRadius: "16px",
+                  border: "none",
+                  boxShadow: "0 12px 30px rgba(0,0,0,.12)",
+                }}
+                formatter={(value) => [value, "Units Sold"]}
+              />
 
-                { topSellingProducts.slice(0, 3).map((entry, index) => { return (
-                  <Cell key={`cell-${index}`} fill={index === 0 ? "#3b82f6" : index === 1 ? "#10b981" : "#f59e0b"} />
-                )})}
-
+              <Bar
+                dataKey="sales"
+                radius={[10, 10, 0, 0]}
+                barSize={45}
+              >
+                {products.map((item, index) => (
+                  <Cell
+                    key={index}
+                    fill={item.color}
+                  />
+                ))}
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>
+
+        {/* Product Cards */}
+        <div className="space-y-4">
+          {products.map((product, index) => (
+            <div
+              key={index}
+              className="group rounded-2xl border border-gray-100 bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div
+                    className="flex h-14 w-14 items-center justify-center rounded-2xl text-lg font-bold text-white"
+                    style={{
+                      backgroundColor: product.color,
+                    }}
+                  >
+                    #{index + 1}
+                  </div>
+
+                  <div>
+                    <h3 className="font-semibold text-gray-800">
+                      {product.name}
+                    </h3>
+
+                    <p className="mt-1 text-sm text-gray-500">
+                      Revenue: {product.revenue}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="text-right">
+                  <h2 className="text-2xl font-bold text-gray-800">
+                    {product.sales}
+                  </h2>
+
+                  <p className="text-xs text-gray-400">
+                    Units Sold
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-5 h-2 overflow-hidden rounded-full bg-gray-100">
+                <div
+                  className="h-full rounded-full transition-all duration-700"
+                  style={{
+                    width: `${(product.sales / 820) * 100}%`,
+                    backgroundColor: product.color,
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </>
+
+      {/* Bottom Stats */}
+      <div className="mt-8 grid grid-cols-2 gap-5 md:grid-cols-4">
+        <div className="rounded-2xl bg-slate-50 p-4">
+          <p className="text-sm text-gray-500">Top Product</p>
+          <h3 className="mt-2 text-xl font-bold">
+            iPhone 16 Pro
+          </h3>
+        </div>
+
+        <div className="rounded-2xl bg-slate-50 p-4">
+          <p className="text-sm text-gray-500">Units Sold</p>
+          <h3 className="mt-2 text-xl font-bold">
+            2,805
+          </h3>
+        </div>
+
+        <div className="rounded-2xl bg-slate-50 p-4">
+          <p className="text-sm text-gray-500">Revenue</p>
+          <h3 className="mt-2 text-xl font-bold">
+            $706K
+          </h3>
+        </div>
+
+        <div className="rounded-2xl bg-slate-50 p-4">
+          <p className="text-sm text-gray-500">Growth</p>
+          <h3 className="mt-2 text-xl font-bold text-green-600">
+            +21.8%
+          </h3>
+        </div>
+      </div>
+    </section>
   );
 };
 
