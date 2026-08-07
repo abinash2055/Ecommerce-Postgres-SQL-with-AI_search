@@ -1,23 +1,250 @@
 
 
-    Time Ended  ::  22.13.24
-
-
 During Payment Method in Terminal you should run 
 
+For Locally,
 stripe listen --forward-to localhost:4000/api/v1/payment/webhook
+
 
 Generally,
 stripe listen --forward-to localhost:{server-portNumber}/{payment-URL}/webhook
 
 
-Problem 1:--> confusion as it shows payment successfull. then it should only show product in My Orders....
-
-Problem 2:--> For AI Search Gemini API key is Finished....
-
-Problem 3:--> Review Not working Completely....
-
-
-
 to get stripe webhook secret key, and it need to be changed after 80 days  
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+# To Deploy Project.
+
+Create .env file in root folder of Server (backend) and add all the dependencies data....
+
+
+
+# Also go to app.js file and remove 
+
+        from  -->  config({ path: "./config/config.env" });
+        to   -->   config();
+
+
+
+# Open Server (backend) folder and push all folders to GitHub and files except 
+        1. env files
+        2. node_modules folder
+        3. uploads folder
+        4. config folder
+
+
+
+# Go to jwtToken files and add 2 line of code inside res.status,
+        secure: true,
+        sameSite: "None"
+
+
+
+# Go to authController files and add 2 line of code inside logout function of res.status,
+        secure: true,
+        sameSite: "None"
+
+
+
+
+# To Get webhook Key for website GO to Stripe Dashboard and under webhook
+        1. Create New Webhook and select Payment Intent Event
+        2. Then Select all payment Successed events
+        3. Click Continue and select Webhook Endpoint and click continue
+        4. Enter Endpoint URL of Backend URL
+
+
+
+
+# Go to GeneratepaymentIntend from utils folder and remove stripe secret ket hardcode
+            FROM  --->      const stripe = Stripe("asdfghj,k,) 
+            TO    --->      const stripe = Stripe(process.env.STRIPE_SECRET_KEY) 
+
+
+    Also add below line at top of the page    --->      
+            import {config} from "dotenv
+            config();
+            
+
+
+
+# Go to NEON WEBSITE 
+        1. CLICK New Project
+        2. Add Project name and all other as default and click on "Create"
+        3. After Creating, open that project and go to branches option
+        4. Click on New Branch and give any Branch Name then click on Create
+        5. Open that Branch and click on Connect
+        6. You see A URI and click on Show password and copy that URI
+
+
+
+# Open db.js file from Server ( backend ) and copy 
+        1. user
+        2. host
+        3. database
+        4. password
+        5. port
+
+# And paste in  .env fie
+        From Copied URI from NEON website manage data and paste in particular name with answer
+
+Example of URL,
+
+        postgresql://neondb_owner:sdfghjgggggr@ep-dark-heart-adfgnhg76ygh-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+
+
+Generally,
+
+        postgresql://<user>:<password>@<host>/<database>?sslmode=require&channel_binding=require
+
+Generally, 
+    1. user=neondb_owner
+    2. host=ep-dark-heart-adfgnhg76ygh-pooler.c-3.us-east-1.aws.neon.tech
+    3. database=neondb
+    4. password=sdfghjgggggr
+    5. port=5432
+
+Example 
+    1. DB_USER = neondb_owner
+    2. DB_HOST = ep-dark-heart-adfgnhg76ygh-pooler.c-3.us-east-1.aws.neon.tech
+    3. DB_NAME = neondb
+    4. DB_PASSWORD = sdfghjgggggr
+    5. DB_PORT = 5432
+
+
+
+# Go to db.js file from Server ( backend ) and write
+
+    Add 2 lines of code at top of the page
+            import {config} from "dotenv
+            config();
+
+    Changes below values
+
+            1. user: process.env.DB_USER
+            2. host: process.env.DB_HOST
+            3. database: process.env.DB_NAME
+            4. password: process.env.DB_PASSWORD
+            5. port: process.env.DB_PORT
+
+    Add this below 1 line code 
+            ssl: { required: true }
+
+
+Push to GitHub
+
+
+
+# Go to Render website
+        1.  Add New Project and Select web Service and select this backend repository from GitHub
+        2. Change Name if you want 
+        3. Since your backend run in 
+            i. npm run dev open server.js
+            ii. So Change text of Start Command and type ---> node server.js
+        4. Select Free 
+        5. Go to Environment Variable and select " Add from .env " or add one by one except PORT
+        6. At Last click on Deploy Web Service
+        7. You get a URL and Copy that URL and wait for it to get status as "Live"
+
+
+
+
+# Go to client folder and select lib folder aqnd select axios.js file 
+        change baseURL
+                from : localhost:4000/api/v1
+                to   : <render_URL>/api/v1 
+
+
+
+# Open terminal under client location and type "npm run build"
+            It create dist folder
+
+
+
+
+# Go to dashboard folder and select lib folder aqnd select axios.js file 
+        change baseURL
+                from : localhost:4000/api/v1
+                to   : <render_URL>/api/v1  
+
+
+
+# Open terminal under dashboard location and type "npm run build"
+        It create dist folder
+
+
+
+
+# GO to that Previously open Stripe webhook Page and under EndPoint URL and paste that backend render URL and then add remaining route which you get from app.js 
+        app.post("/api/v1/payment/webhook)
+
+
+        a. So URL becomes of Endpoint becomes
+
+        Generally,
+        <backend-render-URL>/api//v1/payment/webhook
+
+
+        b. click on Create Destination
+
+        c. At last you see Active and you get webhook-secret so, copy that webhook-secret key
+
+
+
+
+# Go to Netlify and select add New Project and select to upload Drag and Drop oprtion
+        1. drop dist folder from client to netlify to upload and deploy
+        2. select on Quick Setup and put project name as you like and click "update project name"
+        3. Click on finish later
+        4. Copy URI
+
+
+
+
+# Again Go to Netlify and select add New Project and select upload Drag and Drop oprtion
+            1. drop dist folder from dashboard to netlify to upload and deploy
+            2. select on Quick Setup and put project name as you like and click "update project name"
+            3. Click on finish later
+            4. Copy URI
+
+
+
+# Then again go to that project of backend in render and select environment to edit 
+            1. Go to Dashboard_URL and paste the Dashboard URI value of netlify (fdgdfgd.netlify.app)
+
+            2. Go to Frontend_URL and paste and client URI value of netlify (fdgfdgdfgd.netlify.app)
+
+            3. Go to STRIPE_WEBHOOK_KEY and paste URI given by the Stripe website
+            4. click on save, rebuild and deploy
+            5. click on event sidebar to check the status and wait till it says live
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+# Finally Test all the process
+        No User, Products, Orders, Payment is register firstly so register as much as you like qand test remaining activities
+
+
+
+# In Admin Page, We need to manually add 1 user as admin
+            1. For add manually, Go to Neon website and click on branches and select your Branch
+            2. Select Tables from sidebar and select users
+            3. Edit Roles and change "User" to "Admin"
+            4. Save change
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        Finally you can Do all the Task
+                OR
+
+        Watcht this video
+        Link        ---->       https://www.youtube.com/watch?v=DeC91DXwZwY
 
